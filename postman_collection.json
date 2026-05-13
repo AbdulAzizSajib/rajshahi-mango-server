@@ -138,6 +138,317 @@
       ]
     },
     {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Get All Products (Public)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": ["{{baseUrl}}"],
+              "path": ["products"]
+            },
+            "description": "Public. Returns all products, newest first."
+          }
+        },
+        {
+          "name": "Get Product By ID (Public)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/products/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", ":id"],
+              "variable": [
+                { "key": "id", "value": "REPLACE_WITH_PRODUCT_ID" }
+              ]
+            },
+            "description": "Public. Returns a single product."
+          }
+        },
+        {
+          "name": "Create Product (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "name", "value": "Himsagar Premium", "type": "text" },
+                { "key": "description", "value": "Sweet and aromatic Himsagar mangoes from Rajshahi.", "type": "text" },
+                { "key": "category", "value": "Himsagar", "type": "text" },
+                { "key": "location", "value": "Rajshahi", "type": "text" },
+                { "key": "regularprice", "value": "500", "type": "text" },
+                { "key": "offerPrice", "value": "450", "type": "text" },
+                { "key": "image", "type": "file", "src": [] }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": ["{{baseUrl}}"],
+              "path": ["products"]
+            },
+            "description": "Admin only. Creates a product. Send as multipart/form-data — attach the image file in the 'image' field."
+          }
+        },
+        {
+          "name": "Update Product (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "name", "value": "Himsagar Premium (Updated)", "type": "text" },
+                { "key": "offerPrice", "value": "420", "type": "text" },
+                { "key": "image", "type": "file", "src": [], "disabled": true }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", ":id"],
+              "variable": [
+                { "key": "id", "value": "REPLACE_WITH_PRODUCT_ID" }
+              ]
+            },
+            "description": "Admin only. Updates a product. All fields optional. Enable the 'image' field to replace the existing image — the old one is removed from Cloudinary."
+          }
+        },
+        {
+          "name": "Delete Product (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", ":id"],
+              "variable": [
+                { "key": "id", "value": "REPLACE_WITH_PRODUCT_ID" }
+              ]
+            },
+            "description": "Admin only. Deletes a product and removes its image from Cloudinary."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Testimonials",
+      "item": [
+        {
+          "name": "Get All Testimonials (Public)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/testimonials",
+              "host": ["{{baseUrl}}"],
+              "path": ["testimonials"]
+            },
+            "description": "Public. Returns all testimonials, newest first."
+          }
+        },
+        {
+          "name": "Get Testimonial By ID (Public)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/testimonials/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["testimonials", ":id"],
+              "variable": [
+                { "key": "id", "value": "REPLACE_WITH_TESTIMONIAL_ID" }
+              ]
+            },
+            "description": "Public. Returns a single testimonial."
+          }
+        },
+        {
+          "name": "Create Testimonial (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Karim Hossain\",\n  \"comment\": \"Best mangoes I've ever had! Delivery was quick and the fruits were fresh.\",\n  \"location\": \"Dhaka\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/testimonials",
+              "host": ["{{baseUrl}}"],
+              "path": ["testimonials"]
+            },
+            "description": "Admin only. Creates a new testimonial."
+          }
+        },
+        {
+          "name": "Update Testimonial (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"comment\": \"Updated comment text.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/testimonials/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["testimonials", ":id"],
+              "variable": [
+                { "key": "id", "value": "REPLACE_WITH_TESTIMONIAL_ID" }
+              ]
+            },
+            "description": "Admin only. Updates a testimonial. All fields optional."
+          }
+        },
+        {
+          "name": "Delete Testimonial (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/testimonials/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["testimonials", ":id"],
+              "variable": [
+                { "key": "id", "value": "REPLACE_WITH_TESTIMONIAL_ID" }
+              ]
+            },
+            "description": "Admin only. Deletes a testimonial."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Hero Banners",
+      "item": [
+        {
+          "name": "Get All Hero Banners (Public)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/hero-banners",
+              "host": ["{{baseUrl}}"],
+              "path": ["hero-banners"]
+            },
+            "description": "Public. Returns all hero banners ordered by 'order' asc, then newest first."
+          }
+        },
+        {
+          "name": "Get Hero Banner By ID (Public)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/hero-banners/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["hero-banners", ":id"],
+              "variable": [
+                { "key": "id", "value": "REPLACE_WITH_BANNER_ID" }
+              ]
+            },
+            "description": "Public. Returns a single hero banner."
+          }
+        },
+        {
+          "name": "Create Hero Banner (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "title", "value": "গোপালভোগ", "type": "text" },
+                { "key": "subtitle", "value": "পাড়ার আগে শেষবার দেখা", "type": "text" },
+                { "key": "category", "value": "GOPALBHOG", "type": "text" },
+                { "key": "badgeText", "value": "পাড়া হয়েছে আজ ভোরে", "type": "text" },
+                { "key": "badgeDate", "value": "05.11 04:48 PM", "type": "text" },
+                { "key": "footerText", "value": "PHOTO · MAY 11", "type": "text" },
+                { "key": "plateIndex", "value": "3", "type": "text" },
+                { "key": "plateTotal", "value": "4", "type": "text" },
+                { "key": "order", "value": "0", "type": "text" },
+                { "key": "isActive", "value": "true", "type": "text" },
+                { "key": "images", "type": "file", "src": [] },
+                { "key": "images", "type": "file", "src": [] }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/hero-banners",
+              "host": ["{{baseUrl}}"],
+              "path": ["hero-banners"]
+            },
+            "description": "Admin only. multipart/form-data. Attach multiple files under the repeated 'images' field (max 10)."
+          }
+        },
+        {
+          "name": "Update Hero Banner (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "title", "value": "Updated title", "type": "text", "disabled": true },
+                { "key": "isActive", "value": "false", "type": "text", "disabled": true },
+                { "key": "removeImages", "value": "https://res.cloudinary.com/.../image.jpg", "type": "text", "disabled": true },
+                { "key": "images", "type": "file", "src": [], "disabled": true }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/hero-banners/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["hero-banners", ":id"],
+              "variable": [
+                { "key": "id", "value": "REPLACE_WITH_BANNER_ID" }
+              ]
+            },
+            "description": "Admin only. All fields optional. Enable 'images' to append new uploads. Enable 'removeImages' (repeat the key for each URL) to delete specific images from Cloudinary."
+          }
+        },
+        {
+          "name": "Delete Hero Banner (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/hero-banners/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["hero-banners", ":id"],
+              "variable": [
+                { "key": "id", "value": "REPLACE_WITH_BANNER_ID" }
+              ]
+            },
+            "description": "Admin only. Deletes a banner and removes all its images from Cloudinary."
+          }
+        }
+      ]
+    },
+    {
       "name": "Health Check",
       "item": [
         {

@@ -54,3 +54,47 @@ model Admin {
 
   @@map("admins")
 }
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  comment   String
+  location  String
+  createdAt DateTime @default(now())
+
+  @@map("testimonials")
+}
+
+model Product {
+  id           String   @id @default(cuid())
+  name         String
+  description  String?
+  category     String
+  location     String
+  regularprice Float
+  offerPrice   Float?
+  image        String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("products")
+}
+
+model HeroBanner {
+  id         String   @id @default(cuid())
+  title      String
+  subtitle   String?
+  category   String?
+  badgeText  String?
+  badgeDate  String?
+  footerText String?
+  plateIndex Int?
+  plateTotal Int?
+  images     String[]
+  isActive   Boolean  @default(true)
+  order      Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("hero_banners")
+}
