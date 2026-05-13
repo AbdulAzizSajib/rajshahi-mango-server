@@ -6,6 +6,21 @@ const orderItemSchema = z.object({
   price: z.number().positive(),
 });
 
+export const updateOrderStatusSchema = z.object({
+  status: z.enum([
+    "pending",
+    "confirmed",
+    "processing",
+    "packed",
+    "shipped",
+    "out_for_delivery",
+    "delivered",
+    "cancelled",
+    "returned",
+    "refunded",
+  ]),
+});
+
 export const createOrderSchema = z.object({
   fullName: z.string().min(1),
   phone: z.string().min(1),

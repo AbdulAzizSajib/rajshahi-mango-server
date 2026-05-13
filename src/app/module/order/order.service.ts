@@ -1,8 +1,9 @@
 import { prisma } from "../../lib/prisma";
 import { z } from "zod";
-import { createOrderSchema } from "./order.validation";
+import { createOrderSchema, updateOrderStatusSchema } from "./order.validation";
 
 type CreateOrderInput = z.infer<typeof createOrderSchema>;
+type UpdateOrderStatusInput = z.infer<typeof updateOrderStatusSchema>;
 
 const createOrder = async (data: CreateOrderInput) => {
   const { items, ...orderData } = data;
@@ -36,6 +37,14 @@ const getOrderById = async (id: string) => {
   });
 };
 
+const updateOrderStatus = async (id: string, data: UpdateOrderStatusInput) => {
+  return prisma.order.update({
+    where: { id },
+    data: { status: data.status },
+    include: { items: true },
+  });
+};
+
 const deleteOrder = async (id: string) => {
   return prisma.order.delete({ where: { id } });
 };
@@ -44,5 +53,6 @@ export const orderService = {
   createOrder,
   getAllOrders,
   getOrderById,
+  updateOrderStatus,
   deleteOrder,
 };

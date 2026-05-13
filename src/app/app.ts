@@ -6,6 +6,10 @@ import { notFoundMiddleware } from "./middleware/notFound";
 import { envVars } from "./config/env";
 import orderRouter from "./module/order/order.router";
 import adminRouter from "./module/admin/admin.router";
+import productRouter from "./module/product/product.router";
+import testimonialRouter from "./module/testimonial/testimonial.router";
+import heroBannerRouter from "./module/heroBanner/heroBanner.router";
+import dashboardRouter from "./module/dashboard/dashboard.router";
 
 const app: Express = express();
 
@@ -28,6 +32,10 @@ app.get("/", (_req, res) => {
 
 app.use("/orders", orderRouter);
 app.use("/admin", adminRouter);
+app.use("/products", productRouter);
+app.use("/testimonials", testimonialRouter);
+app.use("/hero-banners", heroBannerRouter);
+app.use("/dashboard", dashboardRouter);
 
 app.use(globalErrorHandler);
 app.use(notFoundMiddleware);

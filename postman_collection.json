@@ -115,6 +115,29 @@
           }
         },
         {
+          "name": "Update Order Status (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"confirmed\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/orders/:id/status",
+              "host": ["{{baseUrl}}"],
+              "path": ["orders", ":id", "status"],
+              "variable": [
+                { "key": "id", "value": "REPLACE_WITH_ORDER_ID" }
+              ]
+            },
+            "description": "Admin only. Update order status. Allowed values: \"pending\", \"confirmed\", \"processing\", \"packed\", \"shipped\", \"out_for_delivery\", \"delivered\", \"cancelled\", \"returned\", \"refunded\"."
+          }
+        },
+        {
           "name": "Delete Order (Admin)",
           "request": {
             "method": "DELETE",
@@ -133,6 +156,397 @@
               ]
             },
             "description": "Admin only. Deletes an order and its items (cascade)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Get All Products (Public)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": ["{{baseUrl}}"],
+              "path": ["products"]
+            },
+            "description": "Public. Returns all products, newest first."
+          }
+        },
+        {
+          "name": "Get Product By ID (Public)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/products/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", ":id"],
+              "variable": [
+                { "key": "id", "value": "REPLACE_WITH_PRODUCT_ID" }
+              ]
+            },
+            "description": "Public. Returns a single product."
+          }
+        },
+        {
+          "name": "Create Product (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "name", "value": "Himsagar Premium", "type": "text" },
+                { "key": "description", "value": "Sweet and aromatic Himsagar mangoes from Rajshahi.", "type": "text" },
+                { "key": "category", "value": "Himsagar", "type": "text" },
+                { "key": "location", "value": "Rajshahi", "type": "text" },
+                { "key": "regularprice", "value": "500", "type": "text" },
+                { "key": "offerPrice", "value": "450", "type": "text" },
+                { "key": "images", "type": "file", "src": [] },
+                { "key": "images", "type": "file", "src": [] }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products",
+              "host": ["{{baseUrl}}"],
+              "path": ["products"]
+            },
+            "description": "Admin only. multipart/form-data. Attach multiple image files under the repeated 'images' key (max 10). Old single 'image' field has been replaced."
+          }
+        },
+        {
+          "name": "Update Product (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "name", "value": "Himsagar Premium (Updated)", "type": "text", "disabled": true },
+                { "key": "offerPrice", "value": "420", "type": "text", "disabled": true },
+                { "key": "images", "type": "file", "src": [], "disabled": true },
+                { "key": "images", "type": "file", "src": [], "disabled": true }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/products/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", ":id"],
+              "variable": [
+                { "key": "id", "value": "REPLACE_WITH_PRODUCT_ID" }
+              ]
+            },
+            "description": "Admin only. All fields optional. Enable the 'images' fields to replace all existing images — old ones are removed from Cloudinary."
+          }
+        },
+        {
+          "name": "Delete Product (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/products/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["products", ":id"],
+              "variable": [
+                { "key": "id", "value": "REPLACE_WITH_PRODUCT_ID" }
+              ]
+            },
+            "description": "Admin only. Deletes a product and removes all its images from Cloudinary."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Testimonials",
+      "item": [
+        {
+          "name": "Get Approved Testimonials (Public)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/testimonials",
+              "host": ["{{baseUrl}}"],
+              "path": ["testimonials"]
+            },
+            "description": "Public. Returns only approved testimonials (isApproved: true), newest first. Used for UI display."
+          }
+        },
+        {
+          "name": "Get Testimonial By ID (Public)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/testimonials/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["testimonials", ":id"],
+              "variable": [
+                { "key": "id", "value": "REPLACE_WITH_TESTIMONIAL_ID" }
+              ]
+            },
+            "description": "Public. Returns a single testimonial by ID."
+          }
+        },
+        {
+          "name": "Submit Testimonial (Public)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Karim Hossain\",\n  \"comment\": \"Best mangoes I've ever had! Delivery was quick and the fruits were fresh.\",\n  \"location\": \"Dhaka\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/testimonials",
+              "host": ["{{baseUrl}}"],
+              "path": ["testimonials"]
+            },
+            "description": "Public. Any user can submit a testimonial. isApproved defaults to false — admin must approve before it shows on the UI."
+          }
+        },
+        {
+          "name": "Get All Testimonials (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/testimonials/admin/all",
+              "host": ["{{baseUrl}}"],
+              "path": ["testimonials", "admin", "all"]
+            },
+            "description": "Admin only. Returns all testimonials including pending (isApproved: false). Use this to review and approve submissions."
+          }
+        },
+        {
+          "name": "Approve Testimonial (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isApproved\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/testimonials/:id/approve",
+              "host": ["{{baseUrl}}"],
+              "path": ["testimonials", ":id", "approve"],
+              "variable": [
+                { "key": "id", "value": "REPLACE_WITH_TESTIMONIAL_ID" }
+              ]
+            },
+            "description": "Admin only. Approve or unapprove a testimonial. Send { \"isApproved\": true } to approve, { \"isApproved\": false } to unapprove."
+          }
+        },
+        {
+          "name": "Feature Testimonial (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isFeatured\": true\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/testimonials/:id/feature",
+              "host": ["{{baseUrl}}"],
+              "path": ["testimonials", ":id", "feature"],
+              "variable": [
+                { "key": "id", "value": "REPLACE_WITH_TESTIMONIAL_ID" }
+              ]
+            },
+            "description": "Admin only. Mark or unmark a testimonial as featured. Send { \"isFeatured\": true } to feature, { \"isFeatured\": false } to unfeature."
+          }
+        },
+        {
+          "name": "Update Testimonial (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"comment\": \"Updated comment text.\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/testimonials/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["testimonials", ":id"],
+              "variable": [
+                { "key": "id", "value": "REPLACE_WITH_TESTIMONIAL_ID" }
+              ]
+            },
+            "description": "Admin only. Updates testimonial content (name, comment, location). All fields optional."
+          }
+        },
+        {
+          "name": "Delete Testimonial (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/testimonials/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["testimonials", ":id"],
+              "variable": [
+                { "key": "id", "value": "REPLACE_WITH_TESTIMONIAL_ID" }
+              ]
+            },
+            "description": "Admin only. Deletes a testimonial."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Hero Banners",
+      "item": [
+        {
+          "name": "Get All Hero Banners (Public)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/hero-banners",
+              "host": ["{{baseUrl}}"],
+              "path": ["hero-banners"]
+            },
+            "description": "Public. Returns all hero banners ordered by 'order' asc, then newest first."
+          }
+        },
+        {
+          "name": "Get Hero Banner By ID (Public)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/hero-banners/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["hero-banners", ":id"],
+              "variable": [
+                { "key": "id", "value": "REPLACE_WITH_BANNER_ID" }
+              ]
+            },
+            "description": "Public. Returns a single hero banner."
+          }
+        },
+        {
+          "name": "Create Hero Banner (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "title", "value": "গোপালভোগ", "type": "text" },
+                { "key": "subtitle", "value": "পাড়ার আগে শেষবার দেখা", "type": "text" },
+                { "key": "category", "value": "GOPALBHOG", "type": "text" },
+                { "key": "harvestDate", "value": "2026-05-13T04:48:00.000Z", "type": "text" },
+                { "key": "isActive", "value": "true", "type": "text" },
+                { "key": "images", "type": "file", "src": [] },
+                { "key": "images", "type": "file", "src": [] }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/hero-banners",
+              "host": ["{{baseUrl}}"],
+              "path": ["hero-banners"]
+            },
+            "description": "Admin only. multipart/form-data. Attach multiple files under the repeated 'images' field (max 10)."
+          }
+        },
+        {
+          "name": "Update Hero Banner (Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                { "key": "title", "value": "Updated title", "type": "text", "disabled": true },
+                { "key": "subtitle", "value": "Updated subtitle", "type": "text", "disabled": true },
+                { "key": "category", "value": "HIMSAGAR", "type": "text", "disabled": true },
+                { "key": "harvestDate", "value": "2026-05-14T06:00:00.000Z", "type": "text", "disabled": true },
+                { "key": "isActive", "value": "false", "type": "text", "disabled": true },
+                { "key": "removeImages", "value": "https://res.cloudinary.com/.../image.jpg", "type": "text", "disabled": true },
+                { "key": "images", "type": "file", "src": [], "disabled": true }
+              ]
+            },
+            "url": {
+              "raw": "{{baseUrl}}/hero-banners/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["hero-banners", ":id"],
+              "variable": [
+                { "key": "id", "value": "REPLACE_WITH_BANNER_ID" }
+              ]
+            },
+            "description": "Admin only. All fields optional. Enable 'images' to append new uploads. Enable 'removeImages' (repeat the key for each URL) to delete specific images from Cloudinary."
+          }
+        },
+        {
+          "name": "Delete Hero Banner (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/hero-banners/:id",
+              "host": ["{{baseUrl}}"],
+              "path": ["hero-banners", ":id"],
+              "variable": [
+                { "key": "id", "value": "REPLACE_WITH_BANNER_ID" }
+              ]
+            },
+            "description": "Admin only. Deletes a banner and removes all its images from Cloudinary."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Get Stats (Admin)",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/dashboard/stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["dashboard", "stats"]
+            },
+            "description": "Admin only. Returns orders breakdown (total/pending/confirmed/cancelled), total confirmed revenue, total products, and pending testimonials count."
           }
         }
       ]

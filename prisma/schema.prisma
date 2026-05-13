@@ -24,6 +24,8 @@ model Order {
   subtotal Float
   total    Float
 
+  status OrderStatus @default(pending)
+
   items OrderItem[]
 
   @@map("orders")
@@ -46,6 +48,19 @@ enum DeliveryType {
   home
 }
 
+enum OrderStatus {
+  pending
+  confirmed
+  processing
+  packed
+  shipped
+  out_for_delivery
+  delivered
+  cancelled
+  returned
+  refunded
+}
+
 model Admin {
   id        String   @id @default(cuid())
   email     String   @unique
@@ -53,4 +68,46 @@ model Admin {
   createdAt DateTime @default(now())
 
   @@map("admins")
+}
+
+model Testimonial {
+  id         String   @id @default(cuid())
+  name       String
+  comment    String
+  location   String
+  isApproved Boolean  @default(false)
+  isFeatured Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  @@map("testimonials")
+}
+
+model Product {
+  id           String   @id @default(cuid())
+  name         String
+  description  String?
+  category     String
+  location     String
+  regularprice Float
+  offerPrice   Float?
+  images       String[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@map("products")
+}
+
+model HeroBanner {
+  id         String   @id @default(cuid())
+  title      String
+  subtitle   String?
+  category   String?
+  harvestDate DateTime?
+  images     String[]
+  isActive   Boolean  @default(true)
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("hero_banners")
 }
