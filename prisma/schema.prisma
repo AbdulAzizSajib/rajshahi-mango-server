@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Order {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  fullName String
+  phone    String
+  address  String
+  city     String
+
+  deliveryType DeliveryType
+  deliveryDate DateTime
+
+  notes String?
+
+  subtotal Float
+  total    Float
+
+  items OrderItem[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id      String @id @default(cuid())
+  orderId String
+  order   Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  variety  String
+  quantity Int
+  price    Float
+
+  @@map("order_items")
+}
+
+enum DeliveryType {
+  courier
+  home
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+
+  @@map("admins")
+}
