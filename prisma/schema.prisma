@@ -108,16 +108,35 @@ model Product {
 }
 
 model HeroBanner {
-  id         String   @id @default(cuid())
-  title      String
-  subtitle   String?
-  category   String?
+  id          String    @id @default(cuid())
+  title       String
+  subtitle    String?
+  category    String?
   harvestDate DateTime?
-  images     String[]
-  isActive   Boolean  @default(true)
+  images      String[]
+  isActive    Boolean   @default(true)
 
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("hero_banners")
 }
+
+// ─────────────────────────────────────────────
+// Dashboard
+// ─────────────────────────────────────────────
+// GET /dashboard/stats — Admin only
+// Tumi je data chai dashboard a, niche add koro:
+//
+// Example stats (currently returning empty {}):
+//
+//   totalOrders         Int
+//   totalRevenue        Float
+//   pendingOrders       Int
+//   deliveredOrders     Int
+//   totalProducts       Int
+//   pendingTestimonials Int
+//
+// Kono dedicated model dorkar nei —
+// sob data Order, Product, Testimonial theke aggregate hobe.
+// ─────────────────────────────────────────────
