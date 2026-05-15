@@ -15,7 +15,7 @@ const app: Express = express();
 
 app.use(
   cors({
-    origin: [envVars.FRONTEND_URL, "http://localhost:3000", "http://localhost:5173"],
+    origin: [envVars.FRONTEND_URL, "http://localhost:3000", "http://localhost:5173", "https://rajshahimango.vercel.app", "https://rajshahimango.site"  ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     allowedHeaders: ["Content-Type", "Authorization"],
