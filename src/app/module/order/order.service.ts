@@ -13,6 +13,8 @@ const createOrder = async (data: CreateOrderInput) => {
       ...orderData,
       notes: orderData.notes ?? null,
       deliveryDate: new Date(orderData.deliveryDate),
+      paymentMethod: orderData.paymentMethod,
+      transactionId: orderData.transactionId,
       items: {
         create: items,
       },

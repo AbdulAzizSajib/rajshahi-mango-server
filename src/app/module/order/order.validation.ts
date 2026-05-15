@@ -33,5 +33,7 @@ export const createOrderSchema = z.object({
   notes: z.string().optional(),
   subtotal: z.number().positive(),
   total: z.number().positive(),
+  paymentMethod: z.enum(["bkash", "nagad"]),
+  transactionId: z.string().min(1, "Transaction ID is required"),
   items: z.array(orderItemSchema).min(1),
 });

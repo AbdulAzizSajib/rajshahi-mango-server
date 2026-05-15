@@ -13,7 +13,14 @@ type ApproveTestimonialInput = z.infer<typeof approveTestimonialSchema>;
 type FeatureTestimonialInput = z.infer<typeof featureTestimonialSchema>;
 
 const createTestimonial = async (data: CreateTestimonialInput) => {
-  return prisma.testimonial.create({ data });
+  return prisma.testimonial.create({
+    data: {
+      name: data.name,
+      comment: data.comment,
+      location: data.location,
+      date: data.date ?? null,
+    },
+  });
 };
 
 // Public: only approved testimonials

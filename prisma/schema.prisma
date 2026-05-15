@@ -26,6 +26,9 @@ model Order {
 
   status OrderStatus @default(pending)
 
+  paymentMethod PaymentMethod
+  transactionId String
+
   items OrderItem[]
 
   @@map("orders")
@@ -46,6 +49,11 @@ model OrderItem {
 enum DeliveryType {
   courier
   home
+}
+
+enum PaymentMethod {
+  bkash
+  nagad
 }
 
 enum OrderStatus {
@@ -71,13 +79,14 @@ model Admin {
 }
 
 model Testimonial {
-  id         String   @id @default(cuid())
+  id         String    @id @default(cuid())
   name       String
   comment    String
   location   String
-  isApproved Boolean  @default(false)
-  isFeatured Boolean  @default(false)
-  createdAt  DateTime @default(now())
+  date       DateTime?
+  isApproved Boolean   @default(false)
+  isFeatured Boolean   @default(false)
+  createdAt  DateTime  @default(now())
 
   @@map("testimonials")
 }
