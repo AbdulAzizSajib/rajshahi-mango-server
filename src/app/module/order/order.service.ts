@@ -12,9 +12,10 @@ const createOrder = async (data: CreateOrderInput) => {
     data: {
       ...orderData,
       notes: orderData.notes ?? null,
-      deliveryDate: new Date(orderData.deliveryDate),
-      paymentMethod: orderData.paymentMethod,
-      transactionId: orderData.transactionId,
+      policeStation: orderData.policeStation ?? null,
+      deliveryDate: orderData.deliveryDate ? new Date(orderData.deliveryDate) : null,
+      paymentMethod: orderData.paymentMethod ?? null,
+      transactionId: orderData.transactionId ?? null,
       items: {
         create: items,
       },

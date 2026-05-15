@@ -68,7 +68,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"fullName\": \"Rahim Uddin\",\n  \"phone\": \"01711-111111\",\n  \"address\": \"12/A Mirpur Road\",\n  \"city\": \"Dhaka\",\n  \"deliveryType\": \"courier\",\n  \"deliveryDate\": \"2026-06-15T00:00:00.000Z\",\n  \"notes\": \"Please pack carefully.\",\n  \"subtotal\": 1100,\n  \"total\": 1250,\n  \"paymentMethod\": \"bkash\",\n  \"transactionId\": \"BKS1234567890\",\n  \"items\": [\n    {\n      \"variety\": \"Himsagar\",\n      \"quantity\": 3,\n      \"price\": 300\n    },\n    {\n      \"variety\": \"Langra\",\n      \"quantity\": 2,\n      \"price\": 250\n    }\n  ]\n}"
+              "raw": "{\n  \"fullName\": \"Rahim Uddin\",\n  \"phone\": \"01711-111111\",\n  \"address\": \"12/A Mirpur Road\",\n  \"district\": \"Dhaka\",\n  \"policeStation\": \"Mirpur\",\n  \"deliveryType\": \"courier\",\n  \"deliveryDate\": \"2026-06-15T00:00:00.000Z\",\n  \"notes\": \"Please pack carefully.\",\n  \"subtotal\": 1100,\n  \"total\": 1250,\n  \"paymentMethod\": \"bkash\",\n  \"transactionId\": \"BKS1234567890\",\n  \"items\": [\n    {\n      \"variety\": \"Himsagar\",\n      \"quantity\": 3,\n      \"price\": 300\n    },\n    {\n      \"variety\": \"Langra\",\n      \"quantity\": 2,\n      \"price\": 250\n    }\n  ]\n}"
             },
             "url": {
               "raw": "{{baseUrl}}/orders",

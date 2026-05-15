@@ -13,11 +13,12 @@ model Order {
 
   fullName String
   phone    String
-  address  String
-  city     String
+  address        String
+  district       String
+  policeStation  String?
 
   deliveryType DeliveryType
-  deliveryDate DateTime
+  deliveryDate DateTime?
 
   notes String?
 
@@ -26,8 +27,8 @@ model Order {
 
   status OrderStatus @default(pending)
 
-  paymentMethod PaymentMethod
-  transactionId String
+  paymentMethod PaymentMethod?
+  transactionId String?
 
   items OrderItem[]
 

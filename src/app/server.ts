@@ -1,4 +1,5 @@
 import { createServer, Server } from "node:http";
+import bcrypt from "bcryptjs";
 import app from "./app";
 import { envVars } from "./config/env";
 import { prisma } from "./lib/prisma";
@@ -12,6 +13,18 @@ async function main() {
    
     await prisma.$connect();
     console.log("Database connected successfully.");
+
+    const existingAdmin = await prisma.admin.findUnique({
+      where: { email: envVars.ADMIN_EMAIL },
+    });
+
+    if (!existingAdmin) {
+      const hashed = await bcrypt.hash(envVars.ADMIN_PASSWORD, 10);
+      await prisma.admin.create({
+        data: { email: envVars.ADMIN_EMAIL, password: hashed },
+      });
+      console.log(`Admin created → ${envVars.ADMIN_EMAIL}`);
+    }
 
     server = createServer(app);
 
